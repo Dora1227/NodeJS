@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <script src="/javascripts/jquery.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <%include top.html%>
+    <div class="container">
+        <main class="main">
+            <form method="post" action="/searchPage" id="searchForm">
+                <section class="show searchDiv">
+                    <input type="text" class="search" placeholder="搜搜看，总能找到你想要的...." id="keywords" name="keywords" value="<%=keywords%>" />
+                    <input type="submit" class="searchbtn" value="搜索" /> 
+                </section>
+            </form>
+            <% if (result =="" || result ==null) { %>
+            <section class="show">
+                <div id="loadMore"><a class="loadMore" href="#">加载更多<i class="refresh"></i></a></div>   
+                <section id="resultList">
+                    <% for(var i in contList){%>
+                    <article class="searchList">
+                        <a href="/details?articleId=<%-contList[i]._id%>" class="showDetails">
+                            <span class="listTitle"><%- contList[i].artcTitle %></span>
+                            <span class="listCont"><%= (contList[i].content).replace(new RegExp("<br>",'g'),"\n").substr(0,70)%>...</span><!--.replace(new RegExp("<br>",'g'),"\n").substr(0,70)-->
+                            <span class="artcInfo">
+                                <span class="listAuthor">作者：<%- contList[i].name %></span>
+                                <span class="listTime"><%- contList[i].updateTime %></span>
+                            </span>
+                        </a>
+                    </article>
+                    <%}%> 
+                </section> 
+            </section>
+            <%} else{%>
+            <div class="tips mainCont"><%= result%></div>
+            <% } %>
+            <input type="hidden" id="currentIndex" value="<%=pageIndex%>" name="currentIndex" />
+            <input type="hidden" id="counts" value="<%=allTotal%>" />
+        </main>
+    </div>
+    <%include bottom.html%>
+</body>
+</html>
+<script src="/javascripts/webpage.js"></script>

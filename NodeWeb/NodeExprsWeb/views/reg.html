@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <script src="/javascripts/jquery.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <%include top.html%>
+    <div class="container"> 
+        <section class="main">
+            <form method="post" class="regform">
+                <p class="mess"><%= result%></p>
+                <div class="item" style="padding-bottom:0rem;">
+                    <label for="username" class="label">用户名</label>
+                    <input type="text" placeholder="输入注册用户名" id="username" name="username">
+                    <span class="littleTips">用户名经确认将无法修改！</span>
+                    <span class="regtips"><%=namers%></span>
+                </div>
+                <div class="item">
+                    <label for="password" class="label">用户密码</label>
+                    <input type="password" placeholder="用户密码" id="password" name="password">
+                    <span class="regtips"><%=inpwdrs%></span>
+                </div>
+                <div class="item">
+                    <label for="passwordconf" class="label">重复密码</label>
+                    <input type="password" placeholder="重复密码" id="passwordconf" name="passwordconf">
+                    <span class="regtips"><%=repwdrs%></span>
+                </div>
+                <div class="item clearFloat">
+                    <label for="introinfo" class="label sign">个性签名</label>
+                    <!--<textarea id="article" placeholder="说出你此刻的想法..." class="article" rows="50" cols="20"></textarea>-->
+                    <textarea id="txtintro" placeholder="show出你的个性魅力..." rows="20" cols="30" style="height:80px;" name="txtintro" class="txtintro"></textarea>
+
+                    <!--<input type="hidden" id="intro" name="intro" />-->
+                </div>
+                <div class="item regbtn">
+                    <input type="submit" id="register" name="sub" value="注册">
+                </div>
+            </form>
+        </section> 
+    </div>
+    <%include bottom.html%>
+</body>
+</html>
+<script src="/javascripts/webpage.js"></script>

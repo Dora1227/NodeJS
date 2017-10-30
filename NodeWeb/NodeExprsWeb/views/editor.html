@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title><%= title%></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/javascripts/jquery.min.js"></script>
+</head>
+<body>
+    <%include top.html%>
+    <div class="container">
+        <main class="main">
+            <section class="intro">
+                <form method="post" class="submitform">
+                    <section class="subCont clearFloat">
+                        <% if (result =="" || result ==null) {for(var i in articleDetails) {%>
+                        <div class="articleTitle">标题：<input id="title" name="title" placeholder="给你的想法加个标题吧~" type="text" value="<%- articleDetails[i].artcTitle%>" /></div>
+                        <textarea id="" placeholder="说出你此刻的想法..." class="article" rows="50" cols="20" name="article"><%- (articleDetails[i].content).replace(new RegExp("<br>",'g'),"\n")%></textarea>
+                        
+                        <input type="submit" name="submit" value="修改" class="subArticle">          
+                        <% }}  else{%>
+                        <div class="tips mainCont"><%= result%></div>
+                        <% } %>              
+                    </section>
+                </form> 
+            </section>
+        </main>
+    </div>
+    <%include bottom.html%>
+</body>
+</html>
+<script src="/javascripts/webpage.js"></script>

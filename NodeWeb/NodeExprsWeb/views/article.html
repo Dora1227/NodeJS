@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="/javascripts/jquery.min.js"></script>
+</head>
+<body>
+    <%include top.html%>
+    <div class="container">
+        <main class="main">
+            <section class="userintro">
+                <h2 class="usertitle">心情记录</h2>
+                <hr />
+                <form method="post" class="submitform">
+                    <section class="subCont clearFloat">
+                        <div class="articleTitle">标题：<input id="title" name="title" placeholder="给你的想法加个标题吧~" type="text" /></div>
+                        <textarea id="" placeholder="写下你想说的..." class="article" rows="50" cols="20" name="article"></textarea>
+                        <!--<input type="text" name="article" >-->
+                        <input type="submit" name="submit" value="发表" class="subArticle">
+                    </section>
+                </form> 
+                <hr>
+                <form method="get" action="/acticle">
+                    <section class="show">
+                        <% if (result =="" || result ==null) {for(var i in articleList) { %>
+                        <div class="articleList">
+                            <a href="/details?articleId=<%-articleList[i]._id%>">
+                                <span>
+                                    <span><%-((i*1)+1)%>、标题.</span>&nbsp;&nbsp;<span class="title mainCont"><%- (articleList[i].artcTitle).substr(0,15)%></span>
+                                </span>
+                                <span class="rightCont">
+                                    <span>发表时间：</span><span class="upTime mainCont"><%- articleList[i].updateTime%></span>
+                                </span>
+                            </a> 
+                        </div>
+                        <%}}  else{%>
+                        <div class="tips mainCont"><%= result%></div>
+                        <% } %> 
+                    </section>
+                </form>
+            </section>
+            <!--<section>返回信息：<%- articleList%></section>-->
+        </main> 
+    </div> 
+    <%include bottom.html%>
+</body>
+</html>
+<script src="/javascripts/webpage.js"></script>

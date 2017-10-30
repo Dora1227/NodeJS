@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script src="/javascripts/jquery.min.js"></script>
+</head>
+<body>
+    <nav class="header">
+        <ul class="list">
+            <li class="logo">
+                <a href="/">NodeExprsDemo</a>
+            </li>
+            <li>
+                <a href="/">首页</a>
+            </li>
+            <li>
+                <a href="/login">登录</a>
+            </li>
+            <li>
+                <a href="/reg">注册</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="container">
+        <main class="main">
+            <section class="intro">
+                <!--如果用户登录或者注册成功并且没有在登录状态下点击注册或者登录-->
+                <h1 class="welcome">欢迎来到 NodeExprsDemo</h1>
+                <h3 class="tech">Microblog是一个基于Node.js,使用express4.12.1,jade1.9.2以及MongoDB搭建起来的微博系统,是对Node.js开发指南一书中教学项目的重构。</h3>
+                <p class="btnlist">
+                    <a href="/login" class="login">登录</a>
+                    <a href="/reg" class="register">立即注册</a>
+                </p>
+                <!--if user--><!--    form.submitform(method='get',action='user/#{user}')--><!--        input.article(type='text',name='article',id='article',placeholder='说出你此刻的想法...')--><!--        input.submit(type='submit',name='submit',value='发表')-->
+            </section>
+             
+        </main>
+        <hr>
+        <footer class="footer">
+            <p><a href="#">NodeExprsDemo</a>@2017</p>
+        </footer>
+    </div>
+</body>
+</html>
+<script src="/javascripts/webpage.js"></script>

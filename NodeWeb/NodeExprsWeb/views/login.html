@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="/javascripts/jquery.min.js"></script>
+</head>
+<body>
+     <%include top.html%>
+    <div class="container"> 
+        <section class="main">
+            <form method="post" class="regform">
+                <p class="mess"><%=result%></p>
+                <div class="item">
+                    <label for="username" class="label">用户名</label>
+                    <input type="text" placeholder="输入登陆用户名" id="username" name="username">
+                </div>
+                <div class="item">
+                    <label for="password" class="label">用户密码</label>
+                    <input type="password" placeholder="用户密码" id="password" name="password">
+                </div>
+                <div class="item loginbtn">
+                    <input type="submit" id="sub" name="sub" value="登录">
+                </div>
+            </form>
+        </section>
+    </div> 
+    <%include bottom.html%>
+</body>
+</html>
+<script src="/javascripts/webpage.js"></script>

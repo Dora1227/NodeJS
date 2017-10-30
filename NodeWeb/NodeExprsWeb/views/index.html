@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/webpage.js"></script>
+    <style>
+        a.showDetails {
+            text-decoration: underline;
+            color: #337aB7;
+        }
+    </style>
+</head>
+<body>
+    <%include top.html%>
+    <div class="container">
+        <main class="main"> 
+            <section class="show searchDiv">
+                <input type="text" class="search" id="keywords" placeholder="搜搜看，总能找到你想要的...." />
+                <a class="searchbtn" onclick="goSearch()" href="#">搜索</a> 
+            </section> 
+            <section class="intro">
+                <!--如果用户登录或者注册成功并且没有在登录状态下点击注册或者登录-->
+                <h1 class="welcome">欢迎来到 NodeExprsDemo</h1>
+                <% if (!user) { %>
+                <h3 class="tech">Microblog是一个基于Node.js,使用express4.12.1,jade1.9.2以及MongoDB搭建起来的微博系统,是对Node.js开发指南一书中教学项目的重构。</h3>
+                <p class="btnlist">
+                    <a href="/login" class="login">登录</a>
+                    <a href="/reg" class="register">立即注册</a>
+                    <!--<a href="/home" class="home">进入主页</a>-->
+                </p>
+                <% } else { %>
+                <h1 class="welcome">
+                    <a href="/user">
+                        <% if(user.userImg == "" || user.userImg==null){%>
+                        <i class="user-img" style="background: url(/images/user-img.jpg) no-repeat center; background-size: 100% 100%; "></i>
+                        <%} else{%>
+                        <i class="user-img" style="background: url(/upload/imgs/<%-user.userImg%>) no-repeat center; background-size: 100% 100%; "></i>
+                        <%}%>
+                        <span class="mainCont"> <%- user.name %></span>
+                    </a>
+                </h1>
+                <h3 class="info ">个人简介：<span class="mainCont" style="font-size:0.14rem;"><%- user.introinfo %></span></h3>
+                <h3 class="info ">发表的文章：</h3>
+                <section class="show">
+                    <% if (personrs =="" || personrs ==null) { for(var i in contList) { %>
+                    <div class="articleList">
+                        <a href="/details?articleId=<%-contList[i]._id%>">
+                            <span>
+                                <span><%-((i*1)+1)%>、标题.</span>&nbsp;&nbsp;<span class="title mainCont"><%- (contList[i].artcTitle).substr(0,15)%></span>
+                            </span>
+                            <span class="rightCont">
+                                <span>发表时间：</span><span class="upTime mainCont"><%- contList[i].updateTime%></span>
+                            </span>
+                        </a>
+                    </div>
+                    <%}}  else{%>
+                    <div class="tips mainCont"><%= result%></div>
+                    <% } %>
+                </section>
+                <% } %>
+                <!--if user--><!--    form.submitform(method='get',action='user/#{user}')--><!--        input.article(type='text',name='article',id='article',placeholder='说出你此刻的想法...')--><!--        input.submit(type='submit',name='submit',value='发表')-->
+            </section>
+            <% if (result =="" || result ==null) { %>
+            <section class="show">
+                <% for(var i in articles){%>
+                <article class="col">
+                    <h3 class="author"><%- articles[i].name %>说</h3>
+                    <a href="/details?articleId=<%-articles[i]._id%>" class="showDetails">
+                        <p><%- (articles[i].content).replace(new RegExp("<br>",'g'),"\n").substr(0,80)%>...</p>
+                    </a>
+                </article>
+                <%}%>
+            </section>
+            <%} else{%>
+            <div class="tips mainCont"><%= result%></div>
+            <% } %>
+        </main>
+    </div>
+    <%include bottom.html%>
+</body>
+</html> 

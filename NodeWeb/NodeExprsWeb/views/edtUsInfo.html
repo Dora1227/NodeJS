@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <script src="/javascripts/jquery.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <%include top.html%>
+    <div class="container"> 
+        <% if (result =="" || result ==null) {for(var i in userInfo) {%>
+        <form action="/uploadImg" method="post" id="upload" enctype="multipart/form-data" class="upform">
+            <div class="upItem">
+                <label for="username" class="label">头像</label>
+                <div class="upDiv">
+                    <a class="upload">
+                        <input type="file" name="uploadImg" class="upfile" id="uploadImg" onchange="showName()"/>
+                        <span id="notes">点击选择上传文件</span>
+                    </a>
+                    <input type="submit" value="上传" onclick="show()" class="subUpload" />
+                </div>
+                <span class="upSuccess"></span>
+            </div>
+        </form>
+        <form method="post" class="regform" style="margin-top:0rem;">            
+            <div class="item" style="padding-bottom:0rem;">
+                <label for="username" class="label">用户名</label> 
+                <input type="text" placeholder="输入注册用户名" id="username" name="username" value="<%- userInfo[i].name%>" disabled="disabled">
+                <span class="littleTips">用户名已确认，无法修改</span>
+            </div>
+            <div class="item" style="padding:0rem 0rem 0rem 0.2rem;">
+                <label class="middleTips " style="width:30%;text-align:right;display:inline-block;font-weight:bold;cursor:pointer;" onclick="showResetPwd()">修改密码</label>
+            </div>
+            <div id="resetPwd" style="display:none;">
+                <div>
+                    <label for="username" class="label">旧密码</label>
+                    <input type="password" placeholder="输入旧密码进行验证" id="oldpwd" name="oldpwd">
+                    <span class="littleTips"><%=oldpwd%></span>
+                </div>
+                <div>
+                    <label for="username" class="label">新密码</label>
+                    <input type="password" placeholder="输入新密码" id="newpwd" name="newpwd">
+                    <span class="littleTips"><%=newpwd%></span>
+                </div>
+            </div>
+            <div class="item clearFloat">
+                <label for="introinfo" class="label sign">个性签名</label>
+                <!--<textarea id="article" placeholder="说出你此刻的想法..." class="article" rows="50" cols="20"></textarea>-->
+                <textarea id="txtintro" placeholder="show出你的个性魅力..." class="txtintro" rows="20" cols="30" style="height:80px;" name="txtintro"><%- userInfo[i].introinfo%></textarea>
+                <input type="hidden" id="intro" name="intro" />
+            </div>
+            <div class="item regbtn">
+                <input type="submit" id="update" name="sub" value="修改">
+            </div> 
+        </form>
+        <% }}  else{%>
+        <p class="mess"><%= result%></p>
+        <% } %>
+        
+    </div>
+    <%include bottom.html%>
+</body>
+</html>
+<script src="/javascripts/webpage.js"></script>
+<script>
+    var url = window.location.href; 
+    var param = getUrlParam(url, 'param');
+    if (param != "" && param !=null) {
+        $("div.upDiv").hide();
+        $("span.upSuccess").show();
+        $("span.upSuccess").text("上传成功！"); 
+    } else {
+        $("div.upDiv").show();
+        $("span.upSuccess").hide();  
+    }
+   
+    function showName() {
+        var change = $("#uploadImg").val();
+        var p = change.lastIndexOf("\\");
+        change = change.substr(p + 1); 
+        //alert("截取的字符串："+change.substr(p+1)+"，最后出现的位置："+p);
+         $("#notes").text(change);
+    }
+    
+   //$("#uploadImg").val(oldimg);
+   //function show() {
+   //    var p = document.getElementById("uploadImg").value;
+   //    alert($("#uploadImg").val());
+   //    //$("#oldimg").val(p);
+   //    localStorage.setItem("key", p); //设置键的值 
+
+   //    //document.getElementById("s").innerHTML = "<input id=pic type=image height=96 width=128 /> ";
+   //    //document.getElementById("pic").src = p;
+   //    //alert(p);
+   //}
+</script>

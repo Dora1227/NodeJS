@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%- user.name%><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <script src="/javascripts/jquery.min.js"></script>
+</head>
+<body>
+    <%include top.html%>
+    <div class="container">
+        <main class="main">
+            <section class="show searchDiv" style="display:none;margin-top:0.2rem;" id="searchDiv">
+                <input type="text" class="search" id="keywords" placeholder="搜搜看，总能找到你想要的...." />
+                <a class="searchbtn" onclick="goSearch()" href="#">搜索</a>
+            </section>
+            <section class="userintro" style="margin-top: 0.2rem;">
+                <h2 class="usertitle" style="display:inline-block;*display:inline;*zoom:1;">
+                <% if(user.userImg == "" || user.userImg==null){%>
+                <i class="user-img" style="background: url(/images/user-img.jpg) no-repeat center; background-size: 100% 100%; "></i>
+                <%} else{%>
+                    <i class="user-img" style="background: url(/upload/imgs/<%-user.userImg%>) no-repeat center; background-size: 100% 100%; "></i>
+                <%}%>
+                <span class="wordsColor username"><%- user.name%></span>
+                    的个人主页
+                </h2> 
+                <span onclick="showSearch()" class="showSearch">搜索</span>
+                <!--<a class="searchbtn" onclick="showSearch()" href="#"></a>-->
+                <hr>
+                <section class="show">
+                    <p class="editorArticle"><a href="/edtUsInfo?userId=<%- user._id %>" class="wordsColor" style="text-decoration:underline;">修改资料</a></p>
+                    <div class="tips">个人资料：</div>
+                    <div class="personInfo">
+                        <span>个人简介：<span class="mainCont"><%- user.introinfo %></span></span>
+                    </div> 
+                </section>
+                <hr>
+                <section class="show">
+                    <p class="editorArticle"><a href="/article" class="wordsColor" style="text-decoration:underline;">去写点啥</a></p>
+                    <div class="tips">
+                        文章：
+                    </div>
+                    <% if (result =="" || result ==null) {for(var i in contList) { %>
+                    <div class="articleList">
+                        <div class="artCont">
+                            <a href="/details?articleId=<%-contList[i]._id%>">
+                                <span>
+                                    <span><%-((i*1)+1)%>、标题.</span>&nbsp;&nbsp;<span class="title mainCont"><%- (contList[i].artcTitle).substr(0,15)%></span>
+                                </span>
+                                <span class="rightCont">
+                                    <span>发表时间：</span><span class="upTime mainCont"><%- contList[i].updateTime%></span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="artEditor">
+                            <a href="/editor?articleId=<%-contList[i]._id%>"><span class="editor">编辑</span></a>
+                            <a onclick="removeArticle('<%-contList[i]._id%>')" href="#"><span class="editor">删除</span></a>
+                        </div>
+                    </div>
+                    <%}}  else{%>
+                    <div class="mainCont"><%= result%></div>
+                    <% } %>                    
+                </section>
+                <hr />
+                <!--<section>返回信息：<%=contList%></section>-->
+                <section></section>
+            </section>
+        </main>
+    </div>
+    <%include bottom.html%>
+</body>
+</html>
+<script>
+    function removeArticle(atId) {
+        var flag = confirm("确定删除该篇文章吗？");
+        if (flag) {
+            window.location.href = "/user?articleId=" + atId;
+        }
+
+    }
+</script>
+<script src="/javascripts/webpage.js"></script>

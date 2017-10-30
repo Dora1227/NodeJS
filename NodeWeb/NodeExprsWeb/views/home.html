@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/javascripts/jquery.min.js"></script>
+    
+</head>
+<body>
+    <%include top.html%>
+    <div class="container">
+        <main class="main">
+            <section class="intro">
+                <!--如果用户登录或者注册成功并且没有在登录状态下点击注册或者登录-->
+                <h1 class="welcome">欢迎来到 NodeExprsDemo</h1>
+
+                <h1 class="welcome"><a href="/user"><span class="mainCont"> <%- user.name %></span></a></h1>
+
+                <h3 class="info ">个人简介：<span class="mainCont" style="font-size:0.14rem;"><%- user.introinfo %></span></h3>
+                <h3 class="info " >发表的文章：</h3>
+                <section class="show">
+                    <% if (result =="" || result ==null) { for(var i in contList) { %>
+                    <div class="articleList">
+                        <a href="/details?articleId=<%-contList[i]._id%>">
+                            <span>
+                                <span><%-((i*1)+1)%>、标题.</span>&nbsp;&nbsp;<span class="title mainCont"><%- contList[i].artcTitle%></span>
+                                &nbsp;&nbsp;&nbsp;
+                                <span>发表时间：</span><span class="upTime mainCont"><%- contList[i].updateTime%></span>
+                            </span>
+                        </a>
+                    </div>
+                    <%}}  else{%>
+                    <div class="tips mainCont"><%= result%></div>
+                    <% } %>
+                </section>
+                <!--if user--><!--    form.submitform(method='get',action='user/#{user}')--><!--        input.article(type='text',name='article',id='article',placeholder='说出你此刻的想法...')--><!--        input.submit(type='submit',name='submit',value='发表')-->
+            </section>
+        </main>
+    </div> 
+    <%include bottom.html%>
+</body>
+</html>
+<script src="/javascripts/webpage.js"></script>
